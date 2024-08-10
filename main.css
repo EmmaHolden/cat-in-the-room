@@ -28,6 +28,16 @@ body {
   background-color: var(--darker-brown);
 }
 
+button {
+    position: absolute;
+    z-index: 3;
+    top: 10%;
+    left: 50%;
+    border: solid 3px red;
+    font-size: x-large;
+    background-color: green;
+}
+
 .bookshelf-container {
     position: relative;
     display: flex;
@@ -168,6 +178,11 @@ body {
     right: 50%;
     z-index: 2;
     transform-origin: 50% 0%;
+}
+
+.animal {
+    position: absolute;
+    z-index: 3;
 }
 
 .shake:hover {
