@@ -8,6 +8,7 @@ const horizontalMax = (winWidth -animalWidth);
 const verticalMax = (winHeight - animalHeight);
 const yPos = Math.floor(getRandomNumber(0, verticalMax));
 const xPos = Math.floor(getRandomNumber(0, horizontalMax));
+const rug = document.getElementById("rug")
 let gameActive =  false;
 
 function getRandomNumber(min, max) {
@@ -22,7 +23,10 @@ startButton.addEventListener("click", () => {
 
 animalElement.addEventListener("click", () => {
   if (gameActive){
-    console.log("CLICKED ME")
+    var position = rug.getBoundingClientRect();
+    var x = position.left;
+    var y = position.top;
+    $("#animal").animate({left: x +"px", top: y +"px"}, 2000);
   }
   
 })
