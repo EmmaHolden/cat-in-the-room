@@ -183,6 +183,8 @@ button {
 .animal {
     position: absolute;
     z-index: 3;
+    bottom: 10%;
+    left: 35%;
 }
 
 .shake:hover {
