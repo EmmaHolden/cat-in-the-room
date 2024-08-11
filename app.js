@@ -66,6 +66,8 @@ animalElement.addEventListener("click", () => {
     var position = rug.getBoundingClientRect();
     var x = position.left;
     var y = position.top;
+    console.log(x)
+    console.log(y)
     gameActive = false;
     $('#animal').animate({opacity: 1});
     $("#animal").animate({left: x +"px", top: y +"px"}, 2000, function(){
@@ -77,11 +79,9 @@ animalElement.addEventListener("click", () => {
 $(document).ready(function () {
   $(".lamp").on("animationiteration", function () {
     $(this).removeClass("swing");
-    console.log("out");
   });
 
   $(".lamp").hover(function () {
     $(this).addClass("swing");
-    console.log("over");
   });
 });
