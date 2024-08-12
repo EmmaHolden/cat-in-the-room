@@ -54,7 +54,7 @@ startButton.addEventListener("click", (e) => {
     $('#animal').animate({opacity: 0}, function(){
       animalElement.style.top = yPos +"px";
       animalElement.style.left = xPos +"px";
-      $("#start-button").hide();
+      $(".modal").hide();
       gameActive = true;
     });
 
@@ -71,7 +71,7 @@ animalElement.addEventListener("click", () => {
     gameActive = false;
     $('#animal').animate({opacity: 1});
     $("#animal").animate({left: x +"px", top: y +"px"}, 2000, function(){
-      $("#start-button").show();
+      $(".modal").show();
     });
 })
 
