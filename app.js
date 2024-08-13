@@ -1,15 +1,20 @@
 const animalWidth = 100;
 const animalHeight = 100
-const startButton = document.getElementById("start-button")
+const easyButton = document.getElementById("easy-button")
+const mediumButton = document.getElementById("medium-button")
+const hardButton = document.getElementById("hard-button")
 const animalElement = document.getElementById('animal');
+const rug = document.getElementById("rug")
+const gauge = document.getElementById("gauge")
 const winWidth = window.innerWidth;
 const winHeight = window.innerHeight;
 const horizontalMax = (winWidth -animalWidth);
 const verticalMax = (winHeight - animalHeight);
-const rug = document.getElementById("rug")
-const gauge = document.getElementById("gauge")
 const animalSoundNumberOfLevels = 20
-let numberOfGuessesRemaining = 20
+let totalNumberOfGuesses;
+let numberOfGuessesRemaining;
+let numberOfRows;
+let numberOfColumns;
 let gameActive =  false;
 
 function getRandomNumber(min, max) {
@@ -63,11 +68,9 @@ function endGame(){
   var position = rug.getBoundingClientRect();
   var x = position.left;
   var y = position.top;
-  numberOfGuessesRemaining = 20;
   $('#animal').animate({opacity: 1});
   $("#animal").animate({left: x +"px", top: y +"px"}, 2000, function(){
     $("#silent-mode-level").text("SILENT MODE ACTIVATED");
-    $("#guesses-remaining").text(`GUESSES REMAINING: ${numberOfGuessesRemaining}`);
     $(".silent-mode").hide();
     $("#guesses-remaining").hide();
     $(".modal").show();
@@ -77,18 +80,58 @@ function endGame(){
 function processGuess(distanceLevel){
     let hotterColderText = getHotterColderText(distanceLevel)
     $("#silent-mode-level").text(`Your last guess: ${hotterColderText}!`);
-    $("#guesses-remaining").text(`GUESSES REMAINING: ${numberOfGuessesRemaining}`);
+    console.log(numberOfGuessesRemaining)
     gauge.src=`./images/gauge${distanceLevel}.png`;
     let sound = new Audio(`sounds/cat-meow.wav`)
     sound.volume = (distanceLevel / animalSoundNumberOfLevels);
     sound.play()
 }
 
+function addPawPrint(){
+  let pawprint = document.createElement("img");
+  document.getElementById(`${totalNumberOfGuesses - numberOfGuessesRemaining - 1}`).appendChild(pawprint);
+  pawprint.setAttribute("src", "images/pawprint.png");
+  pawprint.className = "pawprint-image"
+
+}
+
+function createGrid() {
+  let Container = document.getElementById("container");
+  Container.innerHTML = '';
+    let i = 0;
+    let x = numberOfRows * numberOfColumns;
+    document.documentElement.style.setProperty("--rows", numberOfRows);
+    document.documentElement.style.setProperty("--columns", numberOfColumns);
+    for (i =  0; i < x ; i++) {
+      var div = document.createElement("div");
+      div.id = i;
+      document.getElementById("container").appendChild(div);
+      div.style.backgroundColor = "#a8f5f8";
+      div.style.border = "solid 3px black";
+      div.style.width = 300 / numberOfColumns + "px";
+      div.style.height = 150 / numberOfRows + "px";
+  }
+}
+
+function startGame(){
+  const yPos = Math.floor(getRandomNumber(0, verticalMax));
+  const xPos = Math.floor(getRandomNumber(0, horizontalMax));
+  $('#animal').animate({opacity: 0}, function(){
+    animalElement.style.top = yPos +"px";
+    animalElement.style.left = xPos +"px";
+    $(".modal").hide();
+    createGrid();
+    $("#guesses-remaining").show();
+    gameActive = true;
+  });
+}
+
 // Event Listeners
 window.addEventListener('click', throttle(700, (e) => {
   if (gameActive){
     numberOfGuessesRemaining--;
-    if (numberOfGuessesRemaining >= 0){
+    addPawPrint()
+    if (numberOfGuessesRemaining > 0){
       let distanceLevel = getDistance(e)
       processGuess(distanceLevel);
     } else {
@@ -106,17 +149,28 @@ window.addEventListener("keydown", (event) => {
   }
 })
 
-startButton.addEventListener("click", (e) => {
-    const yPos = Math.floor(getRandomNumber(0, verticalMax));
-    const xPos = Math.floor(getRandomNumber(0, horizontalMax));
-    $('#animal').animate({opacity: 0}, function(){
-      animalElement.style.top = yPos +"px";
-      animalElement.style.left = xPos +"px";
-      $(".modal").hide();
-      $("#guesses-remaining").show();
-      gameActive = true;
-    });
+easyButton.addEventListener("click", (e) => {
+  totalNumberOfGuesses = 25;
+  numberOfGuessesRemaining = 25;
+  numberOfRows = 5;
+  numberOfColumns = 5;
+  startGame();
+});
 
+mediumButton.addEventListener("click", (e) => {
+  totalNumberOfGuesses = 16;
+  numberOfGuessesRemaining = 16;
+  numberOfRows = 4;
+  numberOfColumns = 4;
+  startGame();
+});
+
+hardButton.addEventListener("click", (e) => {
+  totalNumberOfGuesses = 9;
+  numberOfGuessesRemaining = 9;
+  numberOfRows = 3;
+  numberOfColumns = 3;
+  startGame();
 });
 
 animalElement.addEventListener("click", () => {
