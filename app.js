@@ -123,6 +123,11 @@ animalElement.addEventListener("click", () => {
     endGame()
 })
 
+
+// Prevents elements on page being dragged by users 
+$('div').on('dragstart', function(event) { event.preventDefault(); });
+$('img').on('dragstart', function(event) { event.preventDefault(); });
+
 // Ensures lampshade swing animation finishes when mouse moved away
 $(document).ready(function () {
   $(".lamp").on("animationiteration", function () {
