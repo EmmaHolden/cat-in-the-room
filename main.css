@@ -42,6 +42,24 @@ button {
     background-color: pink;
 }
 
+.silent-mode {
+    z-index: 1;
+    display: none;
+    background-color: var(--shadow);
+    color: black;
+    width: 20%;
+    height: 23%;
+    top: 3%;
+    left: 5%;
+    position: absolute;
+    font-size: large;
+    text-align: center;
+}
+
+#gauge {
+    width: 50%;
+}
+
 .button-container {
     display: flex;
     justify-content: center;
@@ -256,21 +274,5 @@ button {
     50%  {opacity: 1}
     75%  {opacity: 0.5}
     100% {opacity: 0}
-  }
-
-  #toolbar {
-    position:fixed;
-    background:#20262F;
-    width:100%;
-    text-align:center;
-    padding: 10px
-  }
-  
-  #a {
-  width: 50px;
-  height:50px;
-  background-color:red;
-  position:absolute;
-  z-index: 5;
   }
   
