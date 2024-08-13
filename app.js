@@ -9,52 +9,41 @@ const verticalMax = (winHeight - animalHeight);
 const rug = document.getElementById("rug")
 const gauge = document.getElementById("gauge")
 const animalSoundNumberOfLevels = 20
+let numberOfGuessesRemaining = 20
 let gameActive =  false;
 
-const playSound = (soundLevel) => {
-  let soundLevelText = "";
-  if (gameActive){
-  if (soundLevel < 3){
-    soundLevelText = "Freezing cold"
-  } else if (soundLevel < 6){
-    soundLevelText = "Very cold"
-  } else if (soundLevel < 9){
-    soundLevelText = "A bit chilly"
-  } else if (soundLevel < 12){
-    soundLevelText = "Getting warmer"
-  } else if (soundLevel < 15){
-    soundLevelText = "Very Warm"
-  } else if (soundLevel < 18){
-    soundLevelText = "Hot! Hot! Hot!"
-  }
-  else {
-    soundLevelText = "Absolutely burning hot"
-  }
-  $("#silent-mode-level").text(`Your last guess: ${soundLevelText}!`);
-  gauge.src=`./images/gauge${soundLevel}.png`;
-  let sound = new Audio(`sounds/cat-meow.wav`)
-  sound.volume = (soundLevel / animalSoundNumberOfLevels);
-  sound.play()
-
-  }
+function getRandomNumber(min, max) {
+  return Math.random() * (max - min) + min;
 }
 
-function checkDistance(e) {
+function getDistance(e) {
   let mouseX = e.x || e.clientX
   let mouseY = e.y || e.clientY
   let position = $("#animal").position();
   let animalX = position.left  + animalWidth / 2;
   let animalY = position.top + animalHeight / 2;
-  let distance = parseInt(Math.sqrt(
-  Math.pow(mouseX - animalX, 2) +
-  Math.pow(mouseY - animalY, 2)
-  )),
-  level = Math.max(0, animalSoundNumberOfLevels - parseInt((1 - Math.exp((Math.E - distance)/1000)) * 2 * animalSoundNumberOfLevels));
-  playSound(level);
+  let distance = parseInt(Math.sqrt(Math.pow(mouseX - animalX, 2) + Math.pow(mouseY - animalY, 2)));
+  distanceLevel = Math.max(0, animalSoundNumberOfLevels - parseInt((1 - Math.exp((Math.E - distance)/1000)) * 2 * animalSoundNumberOfLevels));
+  return distanceLevel
 }
 
-function getRandomNumber(min, max) {
-  return Math.random() * (max - min) + min;
+function getHotterColderText(distance){
+  if (distance < 3){
+    return "Freezing cold"
+  } else if (distance < 6){
+    return "Very cold"
+  } else if (distance < 9){
+    return "A bit chilly"
+  } else if (distance < 12){
+    return "Getting warmer"
+  } else if (distance < 15){
+    return "Very Warm"
+  } else if (distance < 18){
+    return "Hot! Hot! Hot!"
+  }
+  else {
+    return "Absolutely burning hot"
+  }
 }
 
 function throttle(delay, fn) {
@@ -69,12 +58,51 @@ function throttle(delay, fn) {
   }
 }
 
+function endGame(){
+  gameActive = false;
+  var position = rug.getBoundingClientRect();
+  var x = position.left;
+  var y = position.top;
+  numberOfGuessesRemaining = 20;
+  $('#animal').animate({opacity: 1});
+  $("#animal").animate({left: x +"px", top: y +"px"}, 2000, function(){
+    $("#silent-mode-level").text("SILENT MODE ACTIVATED");
+    $("#guesses-remaining").text(`GUESSES REMAINING: ${numberOfGuessesRemaining}`);
+    $(".silent-mode").hide();
+    $("#guesses-remaining").hide();
+    $(".modal").show();
+  });
+}
+
+function processGuess(distanceLevel){
+    let hotterColderText = getHotterColderText(distanceLevel)
+    $("#silent-mode-level").text(`Your last guess: ${hotterColderText}!`);
+    $("#guesses-remaining").text(`GUESSES REMAINING: ${numberOfGuessesRemaining}`);
+    gauge.src=`./images/gauge${distanceLevel}.png`;
+    let sound = new Audio(`sounds/cat-meow.wav`)
+    sound.volume = (distanceLevel / animalSoundNumberOfLevels);
+    sound.play()
+}
+
+// Event Listeners
+window.addEventListener('click', throttle(700, (e) => {
+  if (gameActive){
+    numberOfGuessesRemaining--;
+    if (numberOfGuessesRemaining >= 0){
+      let distanceLevel = getDistance(e)
+      processGuess(distanceLevel);
+    } else {
+      endGame();
+    }
+  }
+}));
+
 window.addEventListener("keydown", (event) => {
   let key = event.code;
   if (gameActive){
-  if (key == "Space"){
-    $(".silent-mode").show();
-  } 
+    if (key == "Space"){
+      $(".silent-mode").show();
+    } 
   }
 })
 
@@ -85,29 +113,17 @@ startButton.addEventListener("click", (e) => {
       animalElement.style.top = yPos +"px";
       animalElement.style.left = xPos +"px";
       $(".modal").hide();
+      $("#guesses-remaining").show();
       gameActive = true;
     });
 
 });
 
-window.addEventListener('click', throttle(700, (e) => checkDistance(e)));
-
 animalElement.addEventListener("click", () => {
-    var position = rug.getBoundingClientRect();
-    var x = position.left;
-    var y = position.top;
-    console.log(x)
-    console.log(y)
-    gameActive = false;
-    $('#animal').animate({opacity: 1});
-    $("#animal").animate({left: x +"px", top: y +"px"}, 2000, function(){
-      $("#silent-mode-level").text("SILENT MODE ACTIVATED");
-      $(".silent-mode").hide();
-      $(".modal").show();
-    });
+    endGame()
 })
 
-
+// Ensures lampshade swing animation finishes when mouse moved away
 $(document).ready(function () {
   $(".lamp").on("animationiteration", function () {
     $(this).removeClass("swing");

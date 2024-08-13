@@ -42,6 +42,19 @@ button {
     background-color: pink;
 }
 
+#guesses-remaining {
+    z-index: 1;
+    display: none;
+    color: black;
+    width: 20%;
+    height: 5%;
+    top: 5%;
+    left: 35%;
+    position: absolute;
+    font-size: x-large;
+    text-align: center;
+}
+
 .silent-mode {
     z-index: 1;
     display: none;
