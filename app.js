@@ -7,14 +7,35 @@ const winHeight = window.innerHeight;
 const horizontalMax = (winWidth -animalWidth);
 const verticalMax = (winHeight - animalHeight);
 const rug = document.getElementById("rug")
+const gauge = document.getElementById("gauge")
 const animalSoundNumberOfLevels = 20
 let gameActive =  false;
 
 const playSound = (soundLevel) => {
+  let soundLevelText = "";
   if (gameActive){
+  if (soundLevel < 3){
+    soundLevelText = "Freezing cold"
+  } else if (soundLevel < 6){
+    soundLevelText = "Very cold"
+  } else if (soundLevel < 9){
+    soundLevelText = "A bit chilly"
+  } else if (soundLevel < 12){
+    soundLevelText = "Getting warmer"
+  } else if (soundLevel < 15){
+    soundLevelText = "Very Warm"
+  } else if (soundLevel < 18){
+    soundLevelText = "Hot! Hot! Hot!"
+  }
+  else {
+    soundLevelText = "Absolutely burning hot"
+  }
+  $("#silent-mode-level").text(`Your last guess: ${soundLevelText}!`);
+  gauge.src=`./images/gauge${soundLevel}.png`;
   let sound = new Audio(`sounds/cat-meow.wav`)
   sound.volume = (soundLevel / animalSoundNumberOfLevels);
   sound.play()
+
   }
 }
 
@@ -48,6 +69,15 @@ function throttle(delay, fn) {
   }
 }
 
+window.addEventListener("keydown", (event) => {
+  let key = event.code;
+  if (gameActive){
+  if (key == "Space"){
+    $(".silent-mode").show();
+  } 
+  }
+})
+
 startButton.addEventListener("click", (e) => {
     const yPos = Math.floor(getRandomNumber(0, verticalMax));
     const xPos = Math.floor(getRandomNumber(0, horizontalMax));
@@ -71,6 +101,8 @@ animalElement.addEventListener("click", () => {
     gameActive = false;
     $('#animal').animate({opacity: 1});
     $("#animal").animate({left: x +"px", top: y +"px"}, 2000, function(){
+      $("#silent-mode-level").text("SILENT MODE ACTIVATED");
+      $(".silent-mode").hide();
       $(".modal").show();
     });
 })
