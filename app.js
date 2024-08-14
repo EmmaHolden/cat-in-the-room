@@ -35,19 +35,22 @@ function getDistance(e) {
 function getHotterColderText(distance){
   if (distance < 3){
     return "Freezing cold"
-  } else if (distance < 6){
-    return "Very cold"
-  } else if (distance < 9){
+  } else if (distance < 5){
+    return "Very Cold"
+  } else if (distance < 7){
+    return "Cold"
+  } else if (distance < 8){
     return "A bit chilly"
+  } else if (distance < 10){
+    return "Lukewarm"
   } else if (distance < 12){
-    return "Getting warmer"
+    return "Warm"
   } else if (distance < 15){
-    return "Very Warm"
-  } else if (distance < 18){
-    return "Hot! Hot! Hot!"
-  }
-  else {
+    return "Getting hot! Hot! Hot!"
+  } else if (distance < 18) {
     return "Absolutely burning hot"
+  } else {
+    return "Drop and roll because you're on fire"
   }
 }
 
