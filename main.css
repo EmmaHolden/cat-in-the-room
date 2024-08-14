@@ -93,19 +93,16 @@ body {
 
 /* Start Modal */
 
-.remove-bottom-margin {
-    margin-bottom: 0;
-}
-
 button {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
     font-size: xx-large;
     border: solid 6px var(--wallpaper);
     background-color: pink;
-}
-
-.button-container {
-    display: flex;
-    justify-content: center;
+    width: 25%;
+    cursor:grab;
 }
 
 .button-group-container {
@@ -113,23 +110,21 @@ button {
     justify-content: space-evenly;
 }
 
-.instruction-image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .modal {
-    top: 10%;
+    top: 5%;
     left: 50%;
     z-index: 3;
     background-color: var(--light-blue);
     border: solid 10px var(--brown);
     text-align: center;
-    width: 50vw;
-    height: 80vh;
+    width: 60vw;
+    height: 90vh;
     font-size: x-large;
 }
+
+#modal-image-1 {opacity: 1; width: 40%;}
+#modal-image-2 {opacity: 0.5; width: 40%;}
+#modal-image-3 {opacity: 0.25; width: 40%;}
 
 /* Furniture */
 
