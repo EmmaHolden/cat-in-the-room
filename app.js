@@ -50,7 +50,7 @@ function getHotterColderText(distance){
   } else if (distance < 18) {
     return "Absolutely burning hot"
   } else {
-    return "Drop and roll because you're on fire"
+    return "You're on fire"
   }
 }
 
