@@ -1,72 +1,49 @@
 :root {
-  --light-brown: #c9834e;
-  --brown: #b97540;
-  --dark-brown: #9b6339;
-  --darker-brown: #5a2e0e;
-  --bookshelf-shadow: #AB8F72;
-  --bookshelf-shelves: #BA9B7B;
+  --dark-brown: #5a2e0e;
   --wallpaper: #475365;
-  --floor-brown: #765333;
-  --another-brown: #654A47;
+  --brown: #654A47;
   --shadow: rgba(65, 64, 50, 0.2);
   --light-blue: #a8f5f8;
+}
+
+body {
+  display: flex;
+  cursor: crosshair;
+  align-items: center;
+  justify-content: center;
+  min-height: 90vh;
+  padding: 0vmin 0;
+  background-color: var(--dark-brown);
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 ::-moz-selection { background:transparent; }
 ::selection { background:transparent; }
 
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 0vmin 0;
-  background-color: var(--darker-brown);
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+/* Main Page */
+
+.main-container {
+    display: flex;
 }
 
-#container {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(var(--columns), 1fr);
-    grid-template-rows: repeat(var(--rows), 1fr);
-    background-color: white;
-}
-
-.pawprint-image {
-    object-fit: contain;
-    width: 90%;
-    height: 90%;
-}
-
-.modal {
-    top: 10%;
-    left: 50%;
-    z-index: 3;
-    background-color: var(--light-blue);
-    border: solid 10px var(--another-brown);
-    text-align: center;
-    width: 50vw;
-    height: 80vh;
-    font-size: x-large;
-}
-
-button {
-    font-size: xx-large;
-    border: solid 6px var(--wallpaper);
+.top-container {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: 70%;
+    right: 0%;
     background-color: pink;
 }
 
-#guesses-remaining {
-    z-index: 1;
-    display: none;
-    color: black;
-    top: 2%;
-    left: 75%;
+.animal {
     position: absolute;
-    font-size: x-large;
-    text-align: center;
+    z-index: 3;
+    bottom: 10%;
+    left: 35%;
 }
+
+/* Silent Mode */
 
 .silent-mode {
     z-index: 1;
@@ -86,9 +63,46 @@ button {
     width: 50%;
 }
 
-.button-container {
+/* Guess Counter */
+
+#container {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(var(--columns), 1fr);
+    grid-template-rows: repeat(var(--rows), 1fr);
+    background-color: white;
+}
+
+.pawprint-image {
+    object-fit: contain;
+    width: 90%;
+    height: 90%;
+}
+
+#guesses-remaining {
+    z-index: 1;
+    display: none;
+    color: black;
+    top: 2%;
+    left: 75%;
+    position: absolute;
+    font-size: x-large;
+    text-align: center;
+}
+
+
+/* Start Modal */
+
+button {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: xx-large;
+    border: solid 6px var(--wallpaper);
+    background-color: pink;
+    width: 25%;
+    cursor:grab;
 }
 
 .button-group-container {
@@ -96,31 +110,23 @@ button {
     justify-content: space-evenly;
 }
 
-.bookshelf-container {
-    position: relative;
-    display: flex;
-    align-items: flex-end;
+.modal {
+    top: 5%;
+    left: 50%;
+    z-index: 3;
+    background-color: var(--light-blue);
+    border: solid 10px var(--brown);
+    text-align: center;
+    width: 60vw;
+    height: 90vh;
+    font-size: x-large;
 }
 
-.computer-container {
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-}
+#modal-image-1 {opacity: 1; width: 40%;}
+#modal-image-2 {opacity: 0.5; width: 40%;}
+#modal-image-3 {opacity: 0.25; width: 40%;}
 
-.main-container {
-    display: flex;
-}
-
-.top-container {
-    display: flex;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    bottom: 70%;
-    right: 0%;
-    background-color: pink;
-}
+/* Furniture */
 
 .furniture-container {
     display: flex;
@@ -130,22 +136,65 @@ button {
     right: 0%;
     width: 100%;
     background: var(--wallpaper);
-    border-top: 2vh solid var(--darker-brown);
-    box-shadow:  0 -20px 7px -7px var(--darker-brown) inset;
-    -webkit-box-shadow:  0 -20px 7px -7px var(--darker-brown) inset;
-    -moz-box-shadow:  0 -20px 7px -7px var(--darker-brown) inset;
+    border-top: 2vh solid var(--dark-brown);
+    box-shadow:  0 -20px 7px -7px var(--dark-brown) inset;
+    -webkit-box-shadow:  0 -20px 7px -7px var(--dark-brown) inset;
+    -moz-box-shadow:  0 -20px 7px -7px var(--dark-brown) inset;
     padding-top: 2%;
 }
 
-.instruction-image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.lamp {
+    position: absolute;
+    bottom: -10%;
+    right: 50%;
+    z-index: 2;
+    transform-origin: 50% 0%;
 }
 
-.remove-bottom-margin {
-    margin-bottom: 0;
+.rug {
+    position: absolute;
+    bottom: 5%;
+    left: 35%;
+    transition: transform 0.2s ease-in-out;
 }
+
+.rug:hover {
+    transform: translate(0px, -10px);
+}
+
+.computer-container {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+}
+
+.computerfuzz {
+    position: absolute;
+    top: 10.5%;
+    left: 15%;
+    opacity: 0;
+}
+
+.computerfuzz:hover {
+    animation-name: computerglitch;
+    animation-duration: 0.2s;
+    animation-iteration-count: 3;
+}
+
+/* Bookshelf Items*/
+
+.bookshelf-container {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+}
+
+.book-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
 
 .flex1 {
     position: absolute;
@@ -171,51 +220,31 @@ button {
     right: 5%;
 }
 
-.computerfuzz {
-    position: absolute;
-    top: 10.5%;
-    left: 15%;
-    opacity: 0;
-}
-
-.computerfuzz:hover {
-    animation-name: computerglitch;
-    animation-duration: 0.2s;
-    animation-iteration-count: 3;
-
-}
-
-.book-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.abcbook {
+.abc-book {
     position: absolute;
     left: -4%;
     top: -5%;
 }
 
-.purplebook {
+.purple-book {
     position: absolute;
     left: 14%;
     bottom: -4%;
 }
 
-.whitegreenbooks {
+.white-green-books {
     position: absolute;
     left: 43%;
     bottom: 1%;
 }
 
-.pictureframe {
+.picture-frame {
     position: absolute;
     bottom: -6%;
     left: 50%;
 }
 
-.booktimer {
+.book-timer {
     position: absolute;
     bottom: 4%;
     left: 7%;
@@ -237,29 +266,11 @@ button {
     position: absolute;
     bottom: 4%;
     left: 65%;
-
 }
 
-.lamp {
-    position: absolute;
-    bottom: -10%;
-    right: 50%;
-    z-index: 2;
-    transform-origin: 50% 0%;
-}
 
-.animal {
-    position: absolute;
-    z-index: 3;
-    bottom: 10%;
-    left: 35%;
-}
 
-.shake:hover {
-    animation-name: smallshake;
-    animation-duration: 0.1s;
-    animation-iteration-count: 5;
-}
+/* Animations  */
 
 .swing {
     animation-name: swing;
@@ -267,16 +278,12 @@ button {
     animation-iteration-count: infinite;
 }
 
-.rug {
-    position: absolute;
-    bottom: 5%;
-    left: 35%;
-    transition: transform 0.2s ease-in-out;
+.shake:hover {
+    animation-name: shake;
+    animation-duration: 0.1s;
+    animation-iteration-count: 5;
 }
 
-.rug:hover {
-    transform: translate(0px, -10px);
-}
 @keyframes swing {
     0% { transform: rotate(15deg);}
     10% { transform: rotate(30deg);}
@@ -291,7 +298,7 @@ button {
     100% { transform: rotate(0deg);}
 }
 
-@keyframes smallshake {
+@keyframes shake {
     0%   {}
     25%  {transform: rotate(2deg);}
     50%  {transform: rotate(0deg);}
