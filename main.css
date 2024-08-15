@@ -51,6 +51,18 @@ body {
     display: none;
 }
 
+.play-again-button {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    width: 15%;
+    height: 15%;
+    border: solid 5px var(--light-blue);
+    top: 60%;
+    left: 40%;
+
+}
+
 /* Silent Mode */
 
 .silent-mode {
