@@ -51,6 +51,18 @@ body {
     display: none;
 }
 
+.play-again-button {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    width: 15%;
+    height: 15%;
+    border: solid 5px var(--light-blue);
+    top: 60%;
+    left: 40%;
+
+}
+
 /* Silent Mode */
 
 .silent-mode {
@@ -79,6 +91,7 @@ body {
     grid-template-columns: repeat(var(--columns), 1fr);
     grid-template-rows: repeat(var(--rows), 1fr);
     background-color: white;
+    border: solid 1px black;
 }
 
 .pawprint-image {
@@ -126,7 +139,7 @@ button {
     border: solid 10px var(--brown);
     text-align: center;
     width: 60vw;
-    height: 90vh;
+    height: 87vh;
     font-size: x-large;
 }
 
@@ -288,8 +301,8 @@ button {
 
 .shake:hover {
     animation-name: shake;
-    animation-duration: 0.1s;
-    animation-iteration-count: 5;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
 }
 
 @keyframes swing {
@@ -308,9 +321,9 @@ button {
 
 @keyframes shake {
     0%   {}
-    25%  {transform: rotate(2deg);}
+    25%  {transform: rotate(10deg);}
     50%  {transform: rotate(0deg);}
-    75%  {transform: rotate(-2deg);}
+    75%  {transform: rotate(-10deg);}
     100% {transform: rotate(0deg);}
   }
 

@@ -3,6 +3,7 @@ const animalHeight = 100
 const easyButton = document.getElementById("easy-button")
 const mediumButton = document.getElementById("medium-button")
 const hardButton = document.getElementById("hard-button")
+const playAgainButton = document.getElementById("play-again-button")
 const animalElement = document.getElementById('animal');
 const rug = document.getElementById("rug")
 const gauge = document.getElementById("gauge")
@@ -77,9 +78,8 @@ function endGame(){
   $("#animal").animate({left: x +"px", top: y +"px"}, 2000, function(){
     $("#silent-mode-level").text("SILENT MODE ACTIVATED");
     $(".silent-mode").hide();
-    $('.winner-loser').hide();
     $("#guesses-remaining").hide();
-    $(".modal").show();
+    $("#play-again-button").show();
   });
 }
 
@@ -112,7 +112,7 @@ function createGrid() {
       div.id = i;
       document.getElementById("container").appendChild(div);
       div.style.backgroundColor = "#a8f5f8";
-      div.style.border = "solid 3px black";
+      div.style.border = "solid 1px black";
       div.style.width = 300 / numberOfColumns + "px";
       div.style.height = 150 / numberOfRows + "px";
   }
@@ -178,6 +178,12 @@ hardButton.addEventListener("click", (e) => {
   numberOfColumns = 3;
   startGame();
 });
+
+playAgainButton.addEventListener("click", (e) => {
+    $("#play-again-button").hide();
+    $('.winner-loser').hide();
+    $(".modal").show();
+})
 
 animalElement.addEventListener("click", () => {
     winnerLoser.src=`./images/winner.png`;
