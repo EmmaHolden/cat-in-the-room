@@ -38,9 +38,17 @@ body {
 
 .animal {
     position: absolute;
-    z-index: 3;
+    z-index: 4;
     bottom: 10%;
     left: 35%;
+}
+
+.winner-loser {
+    position: absolute;
+    z-index: 3;
+    top: 20%;
+    left: 20%;
+    display: none;
 }
 
 /* Silent Mode */
@@ -113,7 +121,7 @@ button {
 .modal {
     top: 5%;
     left: 50%;
-    z-index: 3;
+    z-index: 5;
     background-color: var(--light-blue);
     border: solid 10px var(--brown);
     text-align: center;
