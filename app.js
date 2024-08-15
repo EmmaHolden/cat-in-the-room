@@ -112,7 +112,7 @@ function createGrid() {
       div.id = i;
       document.getElementById("container").appendChild(div);
       div.style.backgroundColor = "#a8f5f8";
-      div.style.border = "solid 3px black";
+      div.style.border = "solid 1px black";
       div.style.width = 300 / numberOfColumns + "px";
       div.style.height = 150 / numberOfRows + "px";
   }

@@ -79,6 +79,7 @@ body {
     grid-template-columns: repeat(var(--columns), 1fr);
     grid-template-rows: repeat(var(--rows), 1fr);
     background-color: white;
+    border: solid 1px black;
 }
 
 .pawprint-image {
