@@ -6,6 +6,7 @@ const hardButton = document.getElementById("hard-button")
 const animalElement = document.getElementById('animal');
 const rug = document.getElementById("rug")
 const gauge = document.getElementById("gauge")
+const winnerLoser = document.getElementById("winner-loser")
 const winWidth = window.innerWidth;
 const winHeight = window.innerHeight;
 const horizontalMax = (winWidth -animalWidth);
@@ -71,10 +72,12 @@ function endGame(){
   var position = rug.getBoundingClientRect();
   var x = position.left;
   var y = position.top;
+  $('.winner-loser').show();
   $('#animal').animate({opacity: 1});
   $("#animal").animate({left: x +"px", top: y +"px"}, 2000, function(){
     $("#silent-mode-level").text("SILENT MODE ACTIVATED");
     $(".silent-mode").hide();
+    $('.winner-loser').hide();
     $("#guesses-remaining").hide();
     $(".modal").show();
   });
@@ -83,7 +86,6 @@ function endGame(){
 function processGuess(distanceLevel){
     let hotterColderText = getHotterColderText(distanceLevel)
     $("#silent-mode-level").text(`Your last guess: ${hotterColderText}!`);
-    console.log(numberOfGuessesRemaining)
     gauge.src=`./images/gauge${distanceLevel}.png`;
     let sound = new Audio(`sounds/cat-meow.wav`)
     sound.volume = (distanceLevel / animalSoundNumberOfLevels);
@@ -138,6 +140,7 @@ window.addEventListener('click', throttle(700, (e) => {
       let distanceLevel = getDistance(e)
       processGuess(distanceLevel);
     } else {
+      winnerLoser.src=`./images/loser.png`;
       endGame();
     }
   }
@@ -177,6 +180,7 @@ hardButton.addEventListener("click", (e) => {
 });
 
 animalElement.addEventListener("click", () => {
+    winnerLoser.src=`./images/winner.png`;
     endGame()
 })
 
