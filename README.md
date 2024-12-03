@@ -1,6 +1,6 @@
 # Cat In The Room 
 
-https://emmaholden.github.io/CatInTheRoom/
+https://emmaholden.github.io/cat-in-the-room/
 
 ![image](https://github.com/user-attachments/assets/c9e2a0f4-4682-439f-b19f-27cb31e64916)
 
