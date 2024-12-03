@@ -150,7 +150,7 @@ window.addEventListener("keydown", (event) => {
   let key = event.code;
   if (gameActive){
     if (key == "Space"){
-      $(".silent-mode").show();
+      $(".silent-mode").toggle();
     } 
   }
 })
